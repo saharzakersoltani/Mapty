@@ -20,6 +20,19 @@ if (navigator.geolocation) {
       const { latitude } = position.coords;
       console.log(longitude, latitude);
       console.log(`https://www.google.com/maps/@${longitude},${latitude},10z`);
+
+      const coords = [longitude, latitude];
+
+      const map = L.map('map').setView(coords, 17);
+      L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      L.marker(coords)
+        .addTo(map)
+        .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+        .openPopup();
     },
     function () {
       alert('Could not get your position!');
