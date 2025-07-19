@@ -18,21 +18,37 @@ if (navigator.geolocation) {
       console.log(position);
       const { longitude } = position.coords;
       const { latitude } = position.coords;
-      console.log(longitude, latitude);
       console.log(`https://www.google.com/maps/@${longitude},${latitude},10z`);
 
       const coords = [longitude, latitude];
 
-      const map = L.map('map').setView(coords, 17);
+      const map = L.map('map').setView(coords, 13);
+
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      L.marker(coords)
-        .addTo(map)
-        .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-        .openPopup();
+      // console.log(map);
+
+      map.on('click', function (mapEvent) {
+        console.log(mapEvent);
+        const { lat, lng } = mapEvent.latlng;
+
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(
+            L.popup({
+              maxWidth: 250,
+              minWidth: 100,
+              className: 'running-popup',
+              autoClose: false,
+              closeOnClick: false,
+            })
+          )
+          .setPopupContent('Workout')
+          .openPopup();
+      });
     },
     function () {
       alert('Could not get your position!');
