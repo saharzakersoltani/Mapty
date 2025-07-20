@@ -115,6 +115,15 @@ class App {
   }
 
   _newWorkout(e) {
+    //  Get data from form
+    // Check if data is valid
+    // If workout running, create running object
+    // If workout cycling, create cycling object
+    // Add new object to workout aaray
+    // render workout on map as marker
+    // Render workout on list
+    // Hide form + Clear input fields
+
     e.preventDefault();
     // Clear input fields
     inputDistance.value =
