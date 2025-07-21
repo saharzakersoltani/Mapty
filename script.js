@@ -115,23 +115,41 @@ class App {
   }
 
   _newWorkout(e) {
-    //  Get data from form
-    // Check if data is valid
-    // If workout running, create running object
-    // If workout cycling, create cycling object
-    // Add new object to workout aaray
-    // render workout on map as marker
-    // Render workout on list
-    // Hide form + Clear input fields
-
     e.preventDefault();
-    // Clear input fields
-    inputDistance.value =
-      inputCadence.value =
-      inputDuration.value =
-      inputElevation.value =
-        '';
+    //  Get data from form
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
+    const cadence = +inputCadence.value;
+    const elevation = +inputElevation.value;
 
+    const validInputs = (...inputs) =>
+      inputs.every(inp => Number.isFinite(inp));
+
+    const allPossitive = (...inputs) => inputs.every(inp => inp > 0);
+
+    // If workout running, create running object
+    if (type === 'running') {
+      // Check if data is valid
+      if (
+        !validInputs(distance, duration, cadence) ||
+        !allPossitive(distance, duration, cadence)
+      )
+        return alert('Inputs have to be possitive numbers!');
+    }
+
+    // If workout cycling, create cycling object
+    if (type === 'cycling') {
+      // Check if data is valid
+      if (
+        !validInputs(distance, duration, elevation) ||
+        !allPossitive(distance, duration)
+      )
+        return alert('Inputs have to be possitive numbers!');
+    }
+    // Add new object to workout array
+
+    // render workout on map as marker
     // Display marker (submitting form and then see the workout on the map)
     console.log(this.#mapEvent);
     const { lat, lng } = this.#mapEvent.latlng;
@@ -148,6 +166,16 @@ class App {
       )
       .setPopupContent('Workout')
       .openPopup();
+    // Render workout on list
+
+    // Hide form + Clear input fields
+    e.preventDefault();
+    // Clear input fields
+    inputDistance.value =
+      inputCadence.value =
+      inputDuration.value =
+      inputElevation.value =
+        '';
   }
 }
 
