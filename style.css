@@ -7,6 +7,8 @@
   --color-light--1: #aaa;
   --color-light--2: #ececec;
   --color-light--3: rgb(214, 222, 224);
+
+  --color-icon-edit: #ee2b2b;
 }
 
 * {
@@ -217,4 +219,26 @@ a:visited {
 }
 .cycling-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
+}
+
+/* IMPROVE THE PROJECT: EDIT WORKOUT */
+.icon {
+  font-size: 2.2rem;
+}
+
+.icon:hover {
+  color: var(--color-icon-edit);
+  transition: 0.5s;
+}
+
+.icon__create {
+  grid-column: 4/5;
+  grid-row: 1/2;
+  justify-self: flex-end;
+}
+
+.icon__trash {
+  grid-column: 3/4;
+  grid-row: 1/2;
+  justify-self: flex-end;
 }

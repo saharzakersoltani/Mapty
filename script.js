@@ -12,6 +12,9 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
+const iconTrash = document.querySelector('.icon__trash');
+const iconCreate = document.querySelector('.icon__create');
+
 //////////////////////////////////////////////////////////
 // CLASS WORKOUT
 class Workout {
@@ -116,6 +119,7 @@ class App {
     const coords = [longitude, latitude];
 
     this.#map = L.map('map').setView(coords, 13);
+
     L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -187,7 +191,6 @@ class App {
     }
     // Add new object to workout array
     this.#workouts.push(workout);
-    // console.log(this.#workouts);
 
     // render workout on map as marker    (render means display😉)
     this._renderWorkoutMarker(workout);
@@ -223,7 +226,11 @@ class App {
   _renderWorkout(workout) {
     let html = `
     <li class="workout workout--${workout.type}" data-id="${workout.id}">
-          <h2 class="workout__title">${workout.description}</h2>
+    <h2 class="workout__title">${workout.description}</h2>
+    
+    <ion-icon class="icon icon__trash" name="trash-outline"></ion-icon>
+    <ion-icon class="icon icon__create" name="create-outline"></ion-icon>
+          
           <div class="workout__details">
             <span class="workout__icon">${
               workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'
@@ -306,6 +313,23 @@ class App {
     localStorage.removeItem('workouts');
     location.reload();
   }
+
+  // Remove workout
+  // _removeWorkout(e) {
+  //   const workoutEl = e.target.closest('.workout');
+  //   const trashcan = e.target.closest('.icon__trash');
+
+  //   if (!workoutEl || !trashcan) return;
+
+  //   console.log(trashcan, workoutEl);
+
+  //   // Remove workout from the lid
+  //   workoutEl.style.opacity = 0;
+  //   if (trashcan) {
+  //     setTimeout(() => workoutEl.remove(), 500);
+  //   }
+
+  // }
 }
 
 const app = new App();
