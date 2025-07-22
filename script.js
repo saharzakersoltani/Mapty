@@ -85,6 +85,7 @@ class App {
   #map;
   #mapEvent;
   #workouts = [];
+  #markers = [];
 
   constructor() {
     // Get user's position
@@ -97,6 +98,7 @@ class App {
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevetion.bind(this));
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+    containerWorkouts.addEventListener('click', this._removeWorkout.bind(this));
   }
 
   _getPosition() {
@@ -206,7 +208,7 @@ class App {
   }
 
   _renderWorkoutMarker(workout) {
-    L.marker(workout.coords)
+    const marker = L.marker(workout.coords)
       .addTo(this.#map)
       .bindPopup(
         L.popup({
@@ -221,6 +223,9 @@ class App {
         `${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'} ${workout.description}`
       )
       .openPopup();
+    // console.log(marker);
+    this.#markers.push(marker);
+    marker.workoutId = workout.id;
   }
 
   _renderWorkout(workout) {
@@ -295,6 +300,7 @@ class App {
     // workout._setClicks();
   }
 
+  // set local storage
   _setLocalStorage() {
     localStorage.setItem('workouts', JSON.stringify(this.#workouts));
   }
@@ -309,27 +315,39 @@ class App {
     });
   }
 
-  _reset() {
-    localStorage.removeItem('workouts');
-    location.reload();
-  }
+  // _reset() {
+  //   localStorage.removeItem('workouts');
+  //   location.reload();
+  // }
 
   // Remove workout
-  // _removeWorkout(e) {
-  //   const workoutEl = e.target.closest('.workout');
-  //   const trashcan = e.target.closest('.icon__trash');
+  _removeWorkout(e) {
+    const workoutEl = e.target.closest('.workout');
+    const trashcan = e.target.closest('.icon__trash');
 
-  //   if (!workoutEl || !trashcan) return;
+    if (!workoutEl || !trashcan) return;
 
-  //   console.log(trashcan, workoutEl);
+    console.log(trashcan, workoutEl);
 
-  //   // Remove workout from the lid
-  //   workoutEl.style.opacity = 0;
-  //   if (trashcan) {
-  //     setTimeout(() => workoutEl.remove(), 500);
-  //   }
+    // Remove workout from the list
+    workoutEl.style.opacity = 0;
+    if (trashcan) {
+      setTimeout(() => workoutEl.remove(), 500);
+    }
 
-  // }
+    // Remove marker from map
+    const removeMarker = this.#markers.find(
+      marker => marker.workoutId === workoutEl.dataset.id
+    );
+    this.#map.removeLayer(removeMarker);
+
+    // Remove workout from local storage
+    const updateWorkouts = this.#workouts.filter(
+      workout => workout.id !== workoutEl.dataset.id
+    );
+    this.#workouts = updateWorkouts;
+    this._setLocalStorage();
+  }
 }
 
 const app = new App();
