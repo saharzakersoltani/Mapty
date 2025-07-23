@@ -10,6 +10,12 @@ Due to possible restrictions on map services (e.g. Leaflet/OpenStreetMap), **you
 
 ---
 
+## Live Demo
+
+🔗 [Click here to see the live version](https://mapty-sahar.netlify.app/) 
+
+---
+
 ## Screenshot
 
 ![Mapty Screenshot](./mapty-screenshot-new.png)  
