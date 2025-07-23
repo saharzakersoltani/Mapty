@@ -5,10 +5,6 @@ A simple map-based workout tracker built using JavaScript and Leaflet.js. It all
 
 ---
 
-## Live Demo
-
-🔗 [Click here to see the live version](https://mapty-app-project.netlify.app/)  
-
 ⚠️ **Important for users in Iran:**  
 Due to possible restrictions on map services (e.g. Leaflet/OpenStreetMap), **you may need to use a VPN** to access and use this app properly.
 
