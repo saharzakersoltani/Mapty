@@ -14,6 +14,9 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 const iconTrash = document.querySelector('.icon__trash');
 const iconCreate = document.querySelector('.icon__create');
+const btnDeleteAll = document.querySelector('.btn__delete');
+
+const btn = document.querySelector('.btn');
 
 //////////////////////////////////////////////////////////
 // CLASS WORKOUT
@@ -99,6 +102,8 @@ class App {
     inputType.addEventListener('change', this._toggleElevetion.bind(this));
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
     containerWorkouts.addEventListener('click', this._removeWorkout.bind(this));
+    // containerWorkouts.addEventListener('click', this._editWorkout.bind(this));
+    btnDeleteAll.addEventListener('click', this._reset.bind(this));
   }
 
   _getPosition() {
@@ -122,7 +127,7 @@ class App {
 
     this.#map = L.map('map').setView(coords, 13);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.#map);
@@ -137,6 +142,8 @@ class App {
     this.#mapEvent = mapE;
     form.classList.remove('hidden');
     inputDistance.focus();
+
+    btn.classList.remove('hidden');
   }
 
   _hideForm() {
@@ -315,10 +322,11 @@ class App {
     });
   }
 
-  // _reset() {
-  //   localStorage.removeItem('workouts');
-  //   location.reload();
-  // }
+  // Remove all workouts
+  _reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
+  }
 
   // Remove workout
   _removeWorkout(e) {
@@ -326,8 +334,6 @@ class App {
     const trashcan = e.target.closest('.icon__trash');
 
     if (!workoutEl || !trashcan) return;
-
-    console.log(trashcan, workoutEl);
 
     // Remove workout from the list
     workoutEl.style.opacity = 0;
@@ -347,7 +353,22 @@ class App {
     );
     this.#workouts = updateWorkouts;
     this._setLocalStorage();
+    // if there is no workout in local storage, i want to relod the page
+    if (this.#workouts.length === 0) {
+      btn.classList.add('hidden');
+      location.reload();
+    }
   }
+
+  // Edit workout
+  // _editWorkout(e) {
+  //   const workoutEl = e.target.closest('.workout');
+  //   const iconCreate = e.target.closest('.icon__create');
+
+  //   console.log(workoutEl, iconCreate);
+
+  //   if (!workoutEl || !iconCreate) return;
+  // }
 }
 
 const app = new App();
