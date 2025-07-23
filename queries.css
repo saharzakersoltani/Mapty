@@ -1,0 +1,28 @@
+/* RESPONSSIVE STYLE OF THE MAPTY PROJECT */
+
+/* under 980px */
+@media (max-width: 61.3em) {
+  body {
+    display: block;
+    padding: 0;
+  }
+
+  .workouts {
+    height: 50vh;
+  }
+}
+
+/* under 595px */
+@media (max-width: 37.09em) {
+  html {
+    font-size: 48%;
+  }
+
+  .sidebar {
+    padding: 1rem;
+  }
+
+  #map {
+    height: 80%;
+  }
+}
