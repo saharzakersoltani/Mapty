@@ -12,7 +12,7 @@ Due to possible restrictions on map services (e.g. Leaflet/OpenStreetMap), **you
 
 ## Screenshot
 
-![Mapty Screenshot](./mapty-screenshot.png)  
+![Mapty Screenshot](./mapty-screenshot-new.png)  
 
 ---
 
