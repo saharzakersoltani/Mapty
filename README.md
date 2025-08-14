@@ -53,3 +53,12 @@ This project was built using:
 4. See your workouts listed and displayed on the map.
 5. Refresh the page — data remains saved.
 
+---
+
+## Contact
+
+If you have any questions, feedback, or just want to connect, feel free to reach out:
+
+- **GitHub:** [@saharzakersoltani](https://github.com/saharzakersoltani)
+- **Email:** sahar.zs2002@gmail.com
+- **LinkedIn:** [Sahar Zaker Soltani](https://www.linkedin.com/in/sahar-zaker-soltani)
